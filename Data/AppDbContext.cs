@@ -1,0 +1,14 @@
+﻿using FinanceAPI.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace FinanceAPI.Data
+{
+    public class AppDbContext: IdentityDbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+        public DbSet<ApplicationUser> applicationUsers { get; set; }
+
+    }
+}
