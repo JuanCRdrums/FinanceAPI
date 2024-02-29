@@ -7,6 +7,7 @@ namespace FinanceAPI.Models
         //For local authentication (the undeclared fields such as Id, PasswordHash and Email are in IdentityUser class)
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = String.Empty;
+        public string? JWT { get; set; }
 
 
         //For Google authentication:
