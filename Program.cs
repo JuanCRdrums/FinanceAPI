@@ -1,4 +1,5 @@
 using FinanceAPI.Data;
+using FinanceAPI.Data.Impl;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 //repositorys:
-builder.Services.AddScoped<IUserRepository, IUserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
