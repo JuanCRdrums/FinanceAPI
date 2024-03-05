@@ -73,6 +73,43 @@ namespace FinanceAPI.Controllers
             }
         }
 
+        [HttpPost("signin")]
+        public async Task<IActionResult> SignIn(SignInRequest model)
+        {
+            if(!ModelState.IsValid) { return BadRequest(ModelState); }
+
+            try
+            {
+                //validate email and password
+                var user = await _userRepository.GetUserByEmailAsync(model.Email);
+
+                if(user == null || !VerifyPassword(user.PasswordHash, model.Password))
+                {
+                    return Unauthorized("Invalid email or password");
+                }
+
+                var token = GenerateJwtToken(user);
+                user.JWT = token;
+
+                await _userRepository.UpdateUserAsync(user);
+
+                return Ok(new { token });
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        private bool VerifyPassword(string hashedPassword, string providedPassword)
+        {
+            var passwordHasher = new PasswordHasher<ApplicationUser>();
+            var result = passwordHasher.VerifyHashedPassword(null, hashedPassword, providedPassword);
+
+            return result == PasswordVerificationResult.Success;
+        }
+
         private string GenerateJwtToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

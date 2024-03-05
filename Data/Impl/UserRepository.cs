@@ -21,5 +21,12 @@ namespace FinanceAPI.Data.Impl
         {
             return await _context.applicationUsers.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+        public async Task<ApplicationUser> UpdateUserAsync(ApplicationUser user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
     }
 }

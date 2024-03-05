@@ -6,5 +6,6 @@ namespace FinanceAPI.Data
     {
         Task AddUserAsync(ApplicationUser user);
         Task<ApplicationUser> GetUserByEmailAsync(string email);
+        Task<ApplicationUser> UpdateUserAsync(ApplicationUser user);
     }
 }
