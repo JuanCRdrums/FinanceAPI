@@ -65,7 +65,10 @@ namespace FinanceAPI.Controllers
                 //store the user on database
                 await _userRepository.AddUserAsync(newUser);
 
-                return Ok(new { token });
+                return Ok(new { 
+                    Token = token,
+                    User = newUser
+                });
             }
             catch (Exception ex)
             {
@@ -93,7 +96,9 @@ namespace FinanceAPI.Controllers
 
                 await _userRepository.UpdateUserAsync(user);
 
-                return Ok(new { token });
+                return Ok(new { 
+                    Token = token,
+                    User = user});
             }
             catch (Exception ex)
             {
